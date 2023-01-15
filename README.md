@@ -1,5 +1,5 @@
 # elasticurve
-VBA (Excel;) version of Elastic Bending Script by Will McElwain
+VBA (Excel) version of Elastic Bending Script by Will McElwain
 
 Adapted from VB.NET script posted at...
   https://www.grasshopper3d.com/forum/topics/a-script-for-elastic-bending-aka-the-elastica-curve
