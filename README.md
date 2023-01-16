@@ -13,5 +13,5 @@ Ting-Uei LEE and Yi Min XIE, at: https://www.researchgate.net/publication/357990
 ## Example Macro
 The module code has an example subroutine (MacroLW) that can be assigned to an Excel macro shortcut.
 To use it unmodified, create a sheet named "Elastica", arranged as shown:
-![Screen Snip](snip.png)
+![Screen Snip](snip2.png)
 Enter new values for L or W and run the macro.
