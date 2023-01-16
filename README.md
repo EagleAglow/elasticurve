@@ -9,3 +9,9 @@ Also found posted by willmac8, #16, on Mar 6, 2014 at...
 
 For more on this topic, see: "FROM RULED SURFACES TO ELASTICA-RULED SURFACES: NEW POSSIBILITIES FOR CREATING ARCHITECTURAL FORMS",
 Ting-Uei LEE and Yi Min XIE, at: https://www.researchgate.net/publication/357990812_From_ruled_surfaces_to_elastica-ruled_surfaces_New_possibilities_for_creating_architectural_forms
+
+## Example Macro
+The module code has an example subroutine (MacroLW) that can be assigned to an Excel macro shortcut.
+To use it unmodified, create a sheet named "Elastica", arranged as shown:
+![Screen Snip](snip.png)
+Enter new values for L or W and run the macro.

@@ -121,25 +121,56 @@ Dim A2 As Double
 
 Sub main()
 Dim L As Double, W As Double, H As Double, A As Double, F As Double, n As Integer
-H = 20
-A = 80 * PI / 180#
-
-Call Elastica("HA", L, H, A, W)
+L = 400  ' cm
+W = 318  ' cm (NOTE: units for L, W, H must be consistent)
+Call Elastica("LW", L, H, A, W)    ' mode = LW
 Call FindBendForm(L, W1, m1, A1)   ' first set of points
 For n = 1 To BendFormPointsX.Count
   Debug.Print BendFormPointsX(n), BendFormPointsY(n)
 Next
-F = Force(71.7, 0.0000000000001, L, m1) ' approx 1 mm diameter cylinder of Aluminum?
+F = Force(130, 0.000000000734, L / 100, m1) ' 9.3 mm diameter Aluminum, Length in meters
 Debug.Print L, W1, H, A1, mCount, F
 
 If mCount = 2 Then
-  Call FindBendForm(L, W2, m2, A2)   ' first set of points
+  Call FindBendForm(L, W2, m2, A2)   ' second set of points
   For n = 1 To BendFormPointsX.Count
     Debug.Print BendFormPointsX(n), BendFormPointsY(n)
   Next
   Debug.Print L, W2, H, A2
 End If
+End Sub
 
+Sub MacroLW() ' example for macro to use L and W
+' uses specific cells in sheet "Elastica" - see GitHub Readme for layout
+Dim L As Double, W As Double, H As Double, A As Double, F As Double, n As Integer
+With Worksheets("Elastica")
+  'clear results from any previous runs
+  .Range("B3").ClearContents
+  .Range("B4").ClearContents
+  .Range("B9").ClearContents
+  .Range(Selection, Selection.End(xlToRight)).Select  'go to end of row
+  Selection.ClearContents
+  .Range("B8").Select
+  .Range(Selection, Selection.End(xlToRight)).Select  'go to end of row
+  Selection.ClearContents
+  .Range("B7").Select
+  'get inputs
+  L = .Range("B1") ' cm
+  W = .Range("B2") ' cm (NOTE: units for L, W, H must be consistent)
+  'run calculation
+  Call Elastica("LW", L, H, A, W)    ' mode = LW
+  Call FindBendForm(L, W1, m1, A1)   ' generate first set of points
+  'outputs
+  .Range("B3") = H
+  .Range("B4") = A1 * 180 / PI   ' convert output radians to degrees
+  For n = 1 To BendFormPointsX.Count
+    .Cells(7, 1 + n).Value = BendFormPointsX(n)
+    .Cells(8, 1 + n).Value = BendFormPointsY(n)
+  Next
+  F = Force(.Range("B5"), .Range("B6"), L / 100, m1)
+  .Range("B9") = F
+  ' ignore second curve result, if any
+End With
 End Sub
 
 Public Sub Elastica(ByVal mode As String, Optional ByRef L As Variant, Optional ByRef H As Variant, Optional ByVal A As Variant, Optional ByVal W As Variant)
