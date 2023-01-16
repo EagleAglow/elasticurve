@@ -366,7 +366,8 @@ Public Function Force(ByVal E As Double, ByVal I As Double, ByVal L As Double, B
 ' takes E (Young's Modulus of Elasticity, GPa), I (cross-section area moment of inertia, m^4),
 ' L (length, meters), and returns Force (Newtons)
 ' Young's modulus input E is in GPa, so we convert to Pa here (= N/m^2)
-Force = (EllipticK(m) ^ 2 * (E * 10 ^ 9) * I / L ^ 2) ' from reference {4} pg. 79
+' also, L in reference 4 is only one half of the total straight length passed to this function
+Force = (EllipticK(m) ^ 2) * (E * 10 ^ 9) * I * 4 / (L ^ 2) ' from reference {4} pg. 79
 End Function
 
 Sub ClearCollections()
